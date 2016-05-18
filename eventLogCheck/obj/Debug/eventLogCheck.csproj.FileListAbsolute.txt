@@ -1,0 +1,9 @@
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\bin\Debug\eventLogCheck.exe.config
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\bin\Debug\eventLogCheck.exe
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\bin\Debug\eventLogCheck.pdb
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.csprojResolveAssemblyReference.cache
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.Form1.resources
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.Properties.Resources.resources
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.csproj.GenerateResource.Cache
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.exe
+c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.pdb
