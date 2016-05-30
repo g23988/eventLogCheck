@@ -41,7 +41,12 @@ namespace eventLogCheck
             List<EventRecord> eventlist = query.QueryLog(eventID,LogSource);
             foreach (var item in eventlist)
             {
-                listBox1.Items.Add(item.ThreadId);
+                listBox1.Items.Add(item.TaskDisplayName);
+                
+                if (query.CheckWord("清除",item))
+                {
+                    listBox1.Items.Add("yaya");
+                }
             }
            
             /*
