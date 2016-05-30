@@ -7,3 +7,12 @@ c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogChec
 c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.csproj.GenerateResource.Cache
 c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.exe
 c:\users\weiwei\documents\visual studio 2012\Projects\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.pdb
+D:\program\eventLogCheck\eventLogCheck\bin\Debug\eventLogCheck.exe.config
+D:\program\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.exe
+D:\program\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.pdb
+D:\program\eventLogCheck\eventLogCheck\bin\Debug\eventLogCheck.exe
+D:\program\eventLogCheck\eventLogCheck\bin\Debug\eventLogCheck.pdb
+D:\program\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.csprojResolveAssemblyReference.cache
+D:\program\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.Form1.resources
+D:\program\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.Properties.Resources.resources
+D:\program\eventLogCheck\eventLogCheck\obj\Debug\eventLogCheck.csproj.GenerateResource.Cache

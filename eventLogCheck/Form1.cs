@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Management;
+using System.IO;
+
 
 
 namespace eventLogCheck
@@ -33,12 +35,22 @@ namespace eventLogCheck
         private void check()
         {
             listBox1.Items.Clear();
+            string eventID = "1102";
+            string LogSource = "Security";
+            Query query = new Query();
+            List<EventRecord> eventlist = query.QueryLog(eventID,LogSource);
+            foreach (var item in eventlist)
+            {
+                listBox1.Items.Add(item.ThreadId);
+            }
+           
+            /*
             EventLog mylog = new EventLog();
             mylog.Log = "security";
             mylog.MachineName = System.Environment.MachineName;
-
+            */
             
-
+            /*
             foreach (EventLogEntry entry in mylog.Entries)
             {
                 if (entry.InstanceId >= last)
@@ -47,7 +59,7 @@ namespace eventLogCheck
                     listBox1.Items.Add(entry.InstanceId);
                 }
                 last = entry.InstanceId;
-            }
+            }*/
            
         }
 
