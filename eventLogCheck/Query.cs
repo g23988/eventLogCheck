@@ -26,5 +26,9 @@ namespace eventLogCheck
             }
             return eventList;
         }
+
+        public Boolean CheckWord(string keyword,EventRecord events) {
+            return events.Keywords.ToString().Contains(keyword);
+        }
     }
 }
