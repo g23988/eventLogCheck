@@ -5,17 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.Diagnostics;
 
 
 namespace eventLogCheck
 {
     class Config
     {
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        int _ThreadsMax = 0;
+
+        public int ThreadsMax
+        {
+            get { return _ThreadsMax; }
+            set { _ThreadsMax = value; }
+        }
+
         public Config() {
             string json = readJsonFile("config.json");
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            var dict = jss.Deserialize<Dictionary<string, dynamic>>(json);
+            _ThreadsMax = dict["system"]["ThreadsMax"];
+
             
         }
+
+        
+        
+
         private string readJsonFile(string filename){
             StreamReader sr = new StreamReader(filename);
             return sr.ReadToEnd();
