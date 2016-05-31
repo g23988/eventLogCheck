@@ -27,7 +27,7 @@ namespace eventLogCheck
         private void Form1_Load(object sender, EventArgs e)
         {
             Config config = new Config();
-
+            
             check();
             
         }

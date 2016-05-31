@@ -1,15 +1,32 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+
 
 namespace eventLogCheck
 {
     class Config
     {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        public Config() {
+            string json = readJsonFile("config.json");
+            
+        }
+        private string readJsonFile(string filename){
+            StreamReader sr = new StreamReader(filename);
+            return sr.ReadToEnd();
+        }
 
 
+
+
+
+
+        /*
         private string _iniPath = @"eventLogCheck.ini";
         private List<int> _checkid = new List<int>();
         private List<String> _checkword = new List<String>();
@@ -58,7 +75,7 @@ namespace eventLogCheck
             get { return _checkword; }
             set { _checkword = value; }
         }
-
+        */
         
 
 
