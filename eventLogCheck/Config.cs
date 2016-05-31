@@ -1,15 +1,48 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
+using System.Diagnostics;
+
 
 namespace eventLogCheck
 {
     class Config
     {
+        int _ThreadsMax = 0;
+
+        public int ThreadsMax
+        {
+            get { return _ThreadsMax; }
+            set { _ThreadsMax = value; }
+        }
+
+        public Config() {
+            string json = readJsonFile("config.json");
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            var dict = jss.Deserialize<Dictionary<string, dynamic>>(json);
+            _ThreadsMax = dict["system"]["ThreadsMax"];
+
+            
+        }
+
+        
+        
+
+        private string readJsonFile(string filename){
+            StreamReader sr = new StreamReader(filename);
+            return sr.ReadToEnd();
+        }
 
 
+
+
+
+
+        /*
         private string _iniPath = @"eventLogCheck.ini";
         private List<int> _checkid = new List<int>();
         private List<String> _checkword = new List<String>();
@@ -58,7 +91,7 @@ namespace eventLogCheck
             get { return _checkword; }
             set { _checkword = value; }
         }
-
+        */
         
 
 
