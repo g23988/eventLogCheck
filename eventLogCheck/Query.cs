@@ -12,7 +12,7 @@ namespace eventLogCheck
 {
     class Query
     {
-        public List<EventRecord> QueryLog(string eventID,string LogSource) {
+        public static List<EventRecord> QueryLog(string eventID,string LogSource) {
 
             string sQuery = "*[System/EventID=" + eventID + "]";
 
@@ -27,8 +27,8 @@ namespace eventLogCheck
             return eventList;
         }
 
-        public Boolean CheckWord(string keyword,EventRecord events) {
-            return events.Keywords.ToString().Contains(keyword);
+        public static Boolean CheckWord(string keyword,EventRecord events) {
+            return events.TaskDisplayName.ToString().Contains(keyword);
         }
     }
 }
