@@ -27,12 +27,7 @@ namespace eventLogCheck
         private void Form1_Load(object sender, EventArgs e)
         {
             Config config = new Config();
-            //check();
-            //listBox1.Items.Add(config.ThreadsMax.ToString());
-            //foreach (var item in config.SMTPto)
-            //{
-            //    listBox1.Items.Add(item);
-            //}
+            
             foreach (CheckItem item in config.CheckList)
             {
                 docheck(item);
@@ -49,6 +44,10 @@ namespace eventLogCheck
                     textBox1.Text += (" Alert！" + chkItem.title + "\r\n");
                 }
             }
+        }
+
+        private void checkKeyword() { 
+            
         }
 
     }

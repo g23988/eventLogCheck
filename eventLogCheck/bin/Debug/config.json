@@ -23,6 +23,12 @@
 				"source":"Security",
 				"eventID":"4624",
 				"keyword":"登入"
+			},
+			{
+				"title":"administrator 更變密碼",
+				"source":"Security",
+				"eventID":"4724",
+				"keyword":"administrator"
 			}
 			]
 		}
