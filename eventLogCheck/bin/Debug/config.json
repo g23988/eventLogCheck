@@ -1,5 +1,12 @@
 {
 	"system":{
-		"ThreadsMax":500
+		"ThreadsMax":500,
+		"SMTP":{
+			"alert":true,
+			"server":"localhost",
+			"auth":false,
+			"user":"user",
+			"password":"passwd"
+			}
 	}
 }
