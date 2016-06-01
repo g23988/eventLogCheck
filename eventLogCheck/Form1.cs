@@ -27,15 +27,34 @@ namespace eventLogCheck
         private void Form1_Load(object sender, EventArgs e)
         {
             Config config = new Config();
-            check();
+            //check();
             //listBox1.Items.Add(config.ThreadsMax.ToString());
+            //foreach (var item in config.SMTPto)
+            //{
+            //    listBox1.Items.Add(item);
+            //}
+            foreach (CheckItem item in config.CheckList)
+            {
+                docheck(item);
+            }
             
-            
+        }
+
+        private void docheck(CheckItem chkItem) {
+            List<EventRecord> eventlist = Query.QueryLog(chkItem.eventID, chkItem.source);
+            foreach (var item in eventlist)
+            {
+                if (Query.CheckWord(chkItem.keyword,item))
+                {
+                    listBox1.Items.Add(" Alert！"+chkItem.title);
+                }
+            }
         }
 
         private void check()
         {
             listBox1.Items.Clear();
+
             string eventID = "1102";
             string LogSource = "Security";
             List<EventRecord> eventlist = Query.QueryLog(eventID,LogSource);

@@ -1,5 +1,29 @@
 {
 	"system":{
-		"ThreadsMax":500
-	}
+		"ThreadsMax":500,
+		"SMTP":{
+			"alert":true,
+			"server":"localhost",
+			"auth":false,
+			"user":"user",
+			"password":"passwd",
+			"to":["wei.liu@104.com.tw","sys01@104.com.tw"]
+			}
+	},
+	"check":{
+		"Items":[
+			{
+				"title":"有人清空",
+				"source":"Security",
+				"eventID":"1102",
+				"keyword":"清除"
+			},
+			{
+				"title":"有人登入",
+				"source":"Security",
+				"eventID":"4624",
+				"keyword":"登入"
+			}
+			]
+		}
 }

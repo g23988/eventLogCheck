@@ -6,27 +6,160 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
+using System.Collections;
 
 
 namespace eventLogCheck
 {
+    /// <summary>
+    /// 讀取設定檔相關資源
+    /// </summary>
     class Config
     {
-        private int _ThreadsMax = 0;
-        private string _ConfigName = "config.json"; 
+        //設定檔位置
+        private string _ConfigName = "config.json";
+        //最大執行序
+        private int _ThreadsMax = 1;
+        // smtp 設定
+        private bool _SMTPalert = false;
+        private string _SMTPserver = "";
+        private bool _SMTPauth = false;
+        private string _SMTPuser = "";
+        private string _SMTPpassword = "";
+        private List<string> _SMTPto = new List<string>();
+        
+        
+        //檢查對象
+        private ArrayList _checkList = new ArrayList();
 
+
+        //序列化存放
+        private Dictionary<string, dynamic> _dict;
+
+        /// <summary>
+        /// 取得或設定執行序數量
+        /// </summary>
         public int ThreadsMax
         {
             get { return _ThreadsMax; }
             set { _ThreadsMax = value; }
         }
 
-        public Config() {
-            Dictionary<string, dynamic> dict = getContentList(readJsonFile(_ConfigName));
-            _ThreadsMax = dict["system"]["ThreadsMax"];
-
+        /// <summary>
+        /// 取得要寄送的對象 email
+        /// </summary>
+        public string[] SMTPto {
+            get { return _SMTPto.ToArray(); }
         }
 
+        /// <summary>
+        /// 取得要檢查的對象
+        /// </summary>
+        public ArrayList CheckList { 
+            get { return _checkList;}
+        }
+
+        /// <summary>
+        /// 建構設定檔相關資料
+        /// </summary>
+        public Config() {
+            _dict = getContentList(readJsonFile(_ConfigName));
+            _ThreadsMax = getThreadsMax();
+            _SMTPalert = getSMTPalert();
+            if (_SMTPalert)
+            {
+                _SMTPserver = getSMTPserver();
+                _SMTPauth = getSMTPauth();
+                _SMTPuser = getSMTPuser();
+                _SMTPpassword = getSMTPpassword();
+                _SMTPto = getSMTPto();
+            }
+            _checkList = getCheckItems();
+        }
+
+        /// <summary>
+        /// 取得最大執行序數量
+        /// </summary>
+        /// <returns></returns>
+        private int getThreadsMax() {
+            return _dict["system"]["ThreadsMax"];
+        }
+
+        /// <summary>
+        /// 取得 smtp 是否啟動
+        /// </summary>
+        /// <returns></returns>
+        private bool getSMTPalert() {
+            return _dict["system"]["SMTP"]["alert"];
+        }
+
+
+        /// <summary>
+        /// 取得smtp server位置
+        /// </summary>
+        /// <returns></returns>
+        private string getSMTPserver() {
+            return _dict["system"]["SMTP"]["server"];
+        }
+
+        /// <summary>
+        /// 取得smtp 是否進行身分驗證
+        /// </summary>
+        /// <returns></returns>
+        private bool getSMTPauth() {
+            return _dict["system"]["SMTP"]["auth"];
+        }
+
+        /// <summary>
+        /// 取得 smtp user
+        /// </summary>
+        /// <returns></returns>
+        private string getSMTPuser() {
+            return _dict["system"]["SMTP"]["user"];
+        }
+
+        /// <summary>
+        /// 取得smtp password
+        /// </summary>
+        /// <returns></returns>
+        private string getSMTPpassword() {
+            return _dict["system"]["SMTP"]["password"];
+        }
+
+        /// <summary>
+        /// 取得 smtp 要寄送的對象
+        /// </summary>
+        /// <returns></returns>
+        private List<string> getSMTPto() {
+            List<string> mailTo = new List<string>();
+            foreach (var email in _dict["system"]["SMTP"]["to"])
+            {
+                mailTo.Add(email);
+            }
+            return mailTo;
+        }
+
+        /// <summary>
+        /// 取得所有要檢查的對象
+        /// </summary>
+        /// <returns></returns>
+        private ArrayList getCheckItems() {
+            ArrayList items = new ArrayList();
+            foreach (var item in _dict["check"]["Items"])
+            {
+                CheckItem cit = new CheckItem(item["title"],item["source"], item["eventID"], item["keyword"]);
+                items.Add(cit);
+            }
+            return items;
+        }
+
+
+
+        /// <summary>
+        /// 取得序列化後的json資料
+        /// </summary>
+        /// <param name="json">原始json字串</param>
+        /// <returns>序列化資料</returns>
         private Dictionary<string, dynamic> getContentList(string json)
         {
             JavaScriptSerializer jss = new JavaScriptSerializer();
@@ -34,6 +167,11 @@ namespace eventLogCheck
             return dict;
         }
 
+        /// <summary>
+        /// 讀取json檔案成單一json string
+        /// </summary>
+        /// <param name="filename">檔案位置</param>
+        /// <returns>json string</returns>
         private string readJsonFile(string filename){
             StreamReader sr = new StreamReader(filename);
             return sr.ReadToEnd();
@@ -44,57 +182,6 @@ namespace eventLogCheck
 
 
 
-        /*
-        private string _iniPath = @"eventLogCheck.ini";
-        private List<int> _checkid = new List<int>();
-        private List<String> _checkword = new List<String>();
-
-        public Config() {
-            _checkid = readCheckID();
-            _checkword = readCheckword();
-        }
-
-        private List<string> readCheckword()
-        {
-            List<String> checkwork = new List<String>();
-            String keywordListString = Properties.Settings.Default["Keywords"].ToString();
-            string[] sArray = keywordListString.Split(',');
-            foreach (string item in sArray)
-            {
-                _checkword.Add(item);
-            }
-            return _checkword;
-        }
-
-        private List<int> readCheckID()
-        {
-            List<int> checkID = new List<int>();
-            String idListString = Properties.Settings.Default["IDs"].ToString();
-            string[] sArray = idListString.Split(',');
-            foreach (string item in sArray)
-            {
-                checkID.Add(Convert.ToInt32(item));
-            }
-            return checkID;
-        }
-
-        public string path {
-            get {return _iniPath;}
-            set { _iniPath = value; }
-        }
-
-        public List<int> checkid {
-            get { return _checkid; }
-            set { _checkid = value; }
-        }
-
-        public List<string> checkword 
-        {
-            get { return _checkword; }
-            set { _checkword = value; }
-        }
-        */
-        
 
 
     }
