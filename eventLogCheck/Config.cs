@@ -12,7 +12,8 @@ namespace eventLogCheck
 {
     class Config
     {
-        int _ThreadsMax = 0;
+        private int _ThreadsMax = 0;
+        private string _ConfigName = "config.json"; 
 
         public int ThreadsMax
         {
@@ -21,16 +22,17 @@ namespace eventLogCheck
         }
 
         public Config() {
-            string json = readJsonFile("config.json");
-            JavaScriptSerializer jss = new JavaScriptSerializer();
-            var dict = jss.Deserialize<Dictionary<string, dynamic>>(json);
+            Dictionary<string, dynamic> dict = getContentList(readJsonFile(_ConfigName));
             _ThreadsMax = dict["system"]["ThreadsMax"];
 
-            
         }
 
-        
-        
+        private Dictionary<string, dynamic> getContentList(string json)
+        {
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            var dict = jss.Deserialize<Dictionary<string, dynamic>>(json);
+            return dict;
+        }
 
         private string readJsonFile(string filename){
             StreamReader sr = new StreamReader(filename);
