@@ -6,7 +6,22 @@
 			"server":"localhost",
 			"auth":false,
 			"user":"user",
-			"password":"passwd"
+			"password":"passwd",
+			"to":["wei.liu@104.com.tw","sys01@104.com.tw"]
 			}
-	}
+	},
+	"check":{
+		"Items":[
+			{
+				"source":"Security",
+				"eventID":"1102",
+				"keyword":"清除"
+			},
+			{
+				"source":"Security",
+				"eventID":"4624",
+				"keyword":"登入"
+			}
+			]
+		}
 }

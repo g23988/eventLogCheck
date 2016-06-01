@@ -29,7 +29,14 @@ namespace eventLogCheck
             Config config = new Config();
             check();
             //listBox1.Items.Add(config.ThreadsMax.ToString());
-            
+            //foreach (var item in config.SMTPto)
+            //{
+            //    listBox1.Items.Add(item);
+            //}
+            foreach (CheckItem item in config.CheckList)
+            {
+                listBox1.Items.Add(item.eventID);
+            }
             
         }
 

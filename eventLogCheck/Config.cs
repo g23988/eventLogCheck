@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
+using System.Collections;
 
 
 namespace eventLogCheck
@@ -25,10 +26,14 @@ namespace eventLogCheck
         private bool _SMTPauth = false;
         private string _SMTPuser = "";
         private string _SMTPpassword = "";
+        private List<string> _SMTPto = new List<string>();
         
         
-        
+        //檢查對象
+        private ArrayList _checkList = new ArrayList();
 
+
+        //序列化存放
         private Dictionary<string, dynamic> _dict;
 
         /// <summary>
@@ -38,6 +43,20 @@ namespace eventLogCheck
         {
             get { return _ThreadsMax; }
             set { _ThreadsMax = value; }
+        }
+
+        /// <summary>
+        /// 取得要寄送的對象 email
+        /// </summary>
+        public string[] SMTPto {
+            get { return _SMTPto.ToArray(); }
+        }
+
+        /// <summary>
+        /// 取得要檢查的對象
+        /// </summary>
+        public ArrayList CheckList { 
+            get { return _checkList;}
         }
 
         /// <summary>
@@ -53,7 +72,9 @@ namespace eventLogCheck
                 _SMTPauth = getSMTPauth();
                 _SMTPuser = getSMTPuser();
                 _SMTPpassword = getSMTPpassword();
+                _SMTPto = getSMTPto();
             }
+            _checkList = getCheckItems();
         }
 
         /// <summary>
@@ -104,7 +125,34 @@ namespace eventLogCheck
         private string getSMTPpassword() {
             return _dict["system"]["SMTP"]["password"];
         }
-        
+
+        /// <summary>
+        /// 取得 smtp 要寄送的對象
+        /// </summary>
+        /// <returns></returns>
+        private List<string> getSMTPto() {
+            List<string> mailTo = new List<string>();
+            foreach (var email in _dict["system"]["SMTP"]["to"])
+            {
+                mailTo.Add(email);
+            }
+            return mailTo;
+        }
+
+        /// <summary>
+        /// 取得所有要檢查的對象
+        /// </summary>
+        /// <returns></returns>
+        private ArrayList getCheckItems() {
+            ArrayList items = new ArrayList();
+            foreach (var item in _dict["check"]["Items"])
+            {
+                CheckItem cit = new CheckItem(item["source"], item["eventID"], item["keyword"]);
+                items.Add(cit);
+            }
+            return items;
+        }
+
 
 
         /// <summary>
