@@ -147,7 +147,7 @@ namespace eventLogCheck
             ArrayList items = new ArrayList();
             foreach (var item in _dict["check"]["Items"])
             {
-                CheckItem cit = new CheckItem(item["source"], item["eventID"], item["keyword"]);
+                CheckItem cit = new CheckItem(item["title"],item["source"], item["eventID"], item["keyword"]);
                 items.Add(cit);
             }
             return items;
