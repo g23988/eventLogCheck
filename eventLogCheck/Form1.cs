@@ -46,35 +46,10 @@ namespace eventLogCheck
             {
                 if (Query.CheckWord(chkItem.keyword,item))
                 {
-                    listBox1.Items.Add(" Alert！"+chkItem.title);
+                    textBox1.Text += (" Alert！" + chkItem.title + "\r\n");
                 }
             }
         }
 
-        private void check()
-        {
-            listBox1.Items.Clear();
-
-            string eventID = "1102";
-            string LogSource = "Security";
-            List<EventRecord> eventlist = Query.QueryLog(eventID,LogSource);
-            foreach (var item in eventlist)
-            {
-                
-                listBox1.Items.Add(item.TaskDisplayName);
-                
-                if (Query.CheckWord("清除",item))
-                {
-                    listBox1.Items.Add("yaya");
-                }
-            }
-           
-           
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            check();
-        }
     }
 }
