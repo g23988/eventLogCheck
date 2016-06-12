@@ -10,7 +10,7 @@ namespace eventLogCheck
     {
         private string _source;
         private string _eventID;
-        private string _keyword;
+        private List<string> _keywords;
         private string _title;
         /// <summary>
         /// 創建事件檢查個體
@@ -18,11 +18,11 @@ namespace eventLogCheck
         /// <param name="source">要檢查的來源 ex: Security</param>
         /// <param name="eventID">要檢查的事件id ex: 4624</param>
         /// <param name="keyword">要檢查的關鍵字 ex: 登入</param>
-        public CheckItem(string title,string source,string eventID,string keyword){
+        public CheckItem(string title,string source,string eventID,List<string> keywords){
             _title = title;
             _source = source;
             _eventID = eventID;
-            _keyword = keyword;
+            _keywords = keywords;
         }
         /// <summary>
         /// 取得要檢查的自訂 title
@@ -45,8 +45,8 @@ namespace eventLogCheck
         /// <summary>
         /// 取得要檢查的關鍵字
         /// </summary>
-        public string keyword {
-            get { return _keyword; }
+        public List<string> keywords {
+            get { return _keywords; }
         }
     }
 }

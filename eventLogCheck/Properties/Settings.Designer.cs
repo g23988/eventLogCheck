@@ -22,23 +22,5 @@ namespace eventLogCheck.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1,3,4,5")]
-        public string IDs {
-            get {
-                return ((string)(this["IDs"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("administrator,wei")]
-        public string Keywords {
-            get {
-                return ((string)(this["Keywords"]));
-            }
-        }
     }
 }

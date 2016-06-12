@@ -20,6 +20,14 @@ namespace eventLogCheck
         private string _ConfigName = "config.json";
         //最大執行序
         private int _ThreadsMax = 1;
+        //監測的時間區間
+        private int _RangeSeconds = 86400;
+        //定時器開關
+        private bool _CheckTimerEnable = false;
+        //定時器時間
+        private int _CheckTimer = 30;
+        //放置重複不須被檢查的source
+        List<String> _Sourcelist = new List<String>();
         // smtp 設定
         private bool _SMTPalert = false;
         private string _SMTPserver = "";
@@ -44,6 +52,40 @@ namespace eventLogCheck
             get { return _ThreadsMax; }
             set { _ThreadsMax = value; }
         }
+
+        /// <summary>
+        /// 取得或設定定時器時間 by secs
+        /// </summary>
+        public int CheckTimer { 
+            get { return _CheckTimer;}
+            set { _CheckTimer = value * 1000; }
+        }
+
+        /// <summary>
+        /// 取得或設定定時器開關
+        /// </summary>
+        public bool CheckTimerEnable {
+            get { return _CheckTimerEnable; }
+            set { _CheckTimerEnable = value; }
+        }
+
+        /// <summary>
+        /// 取得或設定需要被檢查的不重複source
+        /// </summary>
+        public List<String> Sourcelist
+        {
+            get { return _Sourcelist; }
+            set { _Sourcelist = value; }
+        }
+
+        /// <summary>
+        /// 取得或設定要檢查的eventlog範圍
+        /// </summary>
+        public int RangeSeconds {
+            get { return _RangeSeconds; }
+            set { _RangeSeconds = value; }
+        }
+
 
         /// <summary>
         /// 取得要寄送的對象 email
@@ -73,8 +115,19 @@ namespace eventLogCheck
                 _SMTPuser = getSMTPuser();
                 _SMTPpassword = getSMTPpassword();
                 _SMTPto = getSMTPto();
+                _RangeSeconds = getRangeSeconds();
+                _CheckTimerEnable = getCheckTimerEnable();
+                _CheckTimer = getCheckTimer();
             }
             _checkList = getCheckItems();
+            //設定不重複的source
+            foreach (CheckItem item in _checkList)
+            {
+                if (_Sourcelist == null || !_Sourcelist.Contains(item.source) )
+                {
+                    _Sourcelist.Add(item.source);
+                }
+            }
         }
 
         /// <summary>
@@ -83,6 +136,30 @@ namespace eventLogCheck
         /// <returns></returns>
         private int getThreadsMax() {
             return _dict["system"]["ThreadsMax"];
+        }
+
+        /// <summary>
+        /// 取得監測的時間區間
+        /// </summary>
+        /// <returns></returns>
+        private int getRangeSeconds() {
+            return _dict["system"]["RangeSeconds"];
+        }
+
+        /// <summary>
+        /// 取得定時器開關
+        /// </summary>
+        /// <returns></returns>
+        private bool getCheckTimerEnable() {
+            return _dict["system"]["CheckTimerEnable"];
+        }
+
+        /// <summary>
+        /// 取得定時器的時間
+        /// </summary>
+        /// <returns></returns>
+        private int getCheckTimer() {
+            return _dict["system"]["CheckTimerSeconds"]*1000;
         }
 
         /// <summary>
@@ -147,7 +224,12 @@ namespace eventLogCheck
             ArrayList items = new ArrayList();
             foreach (var item in _dict["check"]["Items"])
             {
-                CheckItem cit = new CheckItem(item["title"],item["source"], item["eventID"], item["keyword"]);
+                List<string> keywords = new List<string>();
+                foreach (var keyword in item["keywords"])
+                {
+                    keywords.Add(keyword);
+                }
+                CheckItem cit = new CheckItem(item["title"], item["source"], item["eventID"], keywords);
                 items.Add(cit);
             }
             return items;

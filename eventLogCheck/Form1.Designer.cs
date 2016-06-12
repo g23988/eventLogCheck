@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // textBox1
@@ -39,6 +41,10 @@
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(519, 436);
             this.textBox1.TabIndex = 1;
+            // 
+            // checkTimer
+            // 
+            this.checkTimer.Tick += new System.EventHandler(this.checkTimer_Tick);
             // 
             // Form1
             // 
@@ -57,6 +63,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Timer checkTimer;
     }
 }
 
