@@ -1,6 +1,9 @@
 {
 	"system":{
 		"ThreadsMax":500,
+		"RangeSeconds":86400,
+		"CheckTimerEnable":true,
+		"CheckTimerSeconds":10,
 		"SMTP":{
 			"alert":true,
 			"server":"localhost",

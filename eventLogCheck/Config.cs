@@ -20,6 +20,12 @@ namespace eventLogCheck
         private string _ConfigName = "config.json";
         //最大執行序
         private int _ThreadsMax = 1;
+        //監測的時間區間
+        private int _RangeSeconds = 86400;
+        //定時器開關
+        private bool _CheckTimerEnable = false;
+        //定時器時間
+        private int _CheckTimer = 30;
         // smtp 設定
         private bool _SMTPalert = false;
         private string _SMTPserver = "";
@@ -44,6 +50,23 @@ namespace eventLogCheck
             get { return _ThreadsMax; }
             set { _ThreadsMax = value; }
         }
+
+        /// <summary>
+        /// 取得或設定定時器時間 by secs
+        /// </summary>
+        public int CheckTimer { 
+            get { return _CheckTimer;}
+            set { _CheckTimer = value * 1000; }
+        }
+
+        /// <summary>
+        /// 取得或設定定時器開關
+        /// </summary>
+        public bool CheckTimerEnable {
+            get { return _CheckTimerEnable; }
+            set { _CheckTimerEnable = value; }
+        }
+
 
         /// <summary>
         /// 取得要寄送的對象 email
@@ -73,6 +96,9 @@ namespace eventLogCheck
                 _SMTPuser = getSMTPuser();
                 _SMTPpassword = getSMTPpassword();
                 _SMTPto = getSMTPto();
+                _RangeSeconds = getRangeSeconds();
+                _CheckTimerEnable = getCheckTimerEnable();
+                _CheckTimer = getCheckTimer();
             }
             _checkList = getCheckItems();
         }
@@ -83,6 +109,30 @@ namespace eventLogCheck
         /// <returns></returns>
         private int getThreadsMax() {
             return _dict["system"]["ThreadsMax"];
+        }
+
+        /// <summary>
+        /// 取得監測的時間區間
+        /// </summary>
+        /// <returns></returns>
+        private int getRangeSeconds() {
+            return _dict["system"]["RangeSeconds"];
+        }
+
+        /// <summary>
+        /// 取得定時器開關
+        /// </summary>
+        /// <returns></returns>
+        private bool getCheckTimerEnable() {
+            return _dict["system"]["CheckTimerEnable"];
+        }
+
+        /// <summary>
+        /// 取得定時器的時間
+        /// </summary>
+        /// <returns></returns>
+        private int getCheckTimer() {
+            return _dict["system"]["CheckTimerSeconds"]*1000;
         }
 
         /// <summary>
