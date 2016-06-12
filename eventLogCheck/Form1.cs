@@ -77,6 +77,7 @@ namespace eventLogCheck
                     if (check.result())
                     {
                         textBox1.Text += checkitem.title + "\r\n";
+                       
                     }
                     /*
                     if (log.Id.ToString() == checkitem.eventID)
