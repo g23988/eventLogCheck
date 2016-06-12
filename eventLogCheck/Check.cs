@@ -11,17 +11,17 @@ namespace eventLogCheck
     class Check
     {
         private bool _check = false;
-        private string _keyword;
+        private List<string> _keywords;
         private EventRecord _events;
 
         /// <summary>
         /// 執行所有檢查
         /// </summary>
-        /// <param name="keyword">關鍵字</param>
+        /// <param name="checkitem">關鍵字</param>
         /// <param name="events">單一事件</param>
-        public Check(string keyword, EventRecord events)
+        public Check(CheckItem checkitem, EventRecord events)
         {
-            _keyword = keyword;
+            _keywords = checkitem.keywords;
             _events = events;
             if (checkDisplayName())
             {
@@ -43,7 +43,15 @@ namespace eventLogCheck
         /// <returns></returns>
         private Boolean checkDisplayName()
         {
-            return _events.TaskDisplayName.ToString().Contains(_keyword);
+            bool check = false;
+            foreach (string keyword in _keywords)
+            {
+                if (_events.TaskDisplayName.ToString().Contains(keyword))
+                {
+                    check = true;
+                }
+            }
+            return check;
         }
 
     }

@@ -33,6 +33,7 @@ namespace eventLogCheck
             return eventList;
         }
 
+        /*
         /// <summary>
         /// 取得所有eventlog
         /// </summary>
@@ -50,21 +51,33 @@ namespace eventLogCheck
             }
             return eventList;
         }
-
-
-
-
+*/
 
         /// <summary>
-        /// 檢查eventlog 是否有關鍵字
+        /// 取得時間區間內的eventlog
         /// </summary>
-        /// <param name="keyword">關鍵字</param>
-        /// <param name="events">需要檢查的eventlog</param>
+        /// <param name="LogSource">要檢查的目標</param>
+        /// <param name="range">時間區間</param>
         /// <returns></returns>
-        public static Boolean CheckWord(string keyword,EventRecord events) {
-            Check check = new Check(keyword,events);
-            return check.result();
+        public static List<EventRecord> QueryLog(List<String> LogSource,int range)
+        {
+            DateTime localDate = DateTime.UtcNow;
+            List<EventRecord> eventList = new List<EventRecord>();
+            string sQuery = "*[System[TimeCreated[@SystemTime >= \"" + localDate.Date.ToString("s") + "\"]]]";
+            foreach (string source in LogSource)
+            {
+                var elQuery = new EventLogQuery(source, PathType.LogName, sQuery);
+                var elReader = new System.Diagnostics.Eventing.Reader.EventLogReader(elQuery);
+                for (EventRecord eventInstance = elReader.ReadEvent(); null != eventInstance; eventInstance = elReader.ReadEvent())
+                {
+                    eventList.Add(eventInstance);
+                }
+            }
+            return eventList;
         }
+
+
+
 
         
 

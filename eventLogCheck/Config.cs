@@ -26,6 +26,8 @@ namespace eventLogCheck
         private bool _CheckTimerEnable = false;
         //定時器時間
         private int _CheckTimer = 30;
+        //放置重複不須被檢查的source
+        List<String> _Sourcelist = new List<String>();
         // smtp 設定
         private bool _SMTPalert = false;
         private string _SMTPserver = "";
@@ -67,6 +69,23 @@ namespace eventLogCheck
             set { _CheckTimerEnable = value; }
         }
 
+        /// <summary>
+        /// 取得或設定需要被檢查的不重複source
+        /// </summary>
+        public List<String> Sourcelist
+        {
+            get { return _Sourcelist; }
+            set { _Sourcelist = value; }
+        }
+
+        /// <summary>
+        /// 取得或設定要檢查的eventlog範圍
+        /// </summary>
+        public int RangeSeconds {
+            get { return _RangeSeconds; }
+            set { _RangeSeconds = value; }
+        }
+
 
         /// <summary>
         /// 取得要寄送的對象 email
@@ -101,6 +120,14 @@ namespace eventLogCheck
                 _CheckTimer = getCheckTimer();
             }
             _checkList = getCheckItems();
+            //設定不重複的source
+            foreach (CheckItem item in _checkList)
+            {
+                if (_Sourcelist == null || !_Sourcelist.Contains(item.source) )
+                {
+                    _Sourcelist.Add(item.source);
+                }
+            }
         }
 
         /// <summary>
@@ -197,7 +224,12 @@ namespace eventLogCheck
             ArrayList items = new ArrayList();
             foreach (var item in _dict["check"]["Items"])
             {
-                CheckItem cit = new CheckItem(item["title"],item["source"], item["eventID"], item["keyword"]);
+                List<string> keywords = new List<string>();
+                foreach (var keyword in item["keywords"])
+                {
+                    keywords.Add(keyword);
+                }
+                CheckItem cit = new CheckItem(item["title"], item["source"], item["eventID"], keywords);
                 items.Add(cit);
             }
             return items;
