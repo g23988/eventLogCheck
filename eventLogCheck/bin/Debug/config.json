@@ -25,7 +25,13 @@
 				"title":"weiwei 更變密碼",
 				"source":"Security",
 				"eventID":"4724",
-				"keywords":["weiwei","administartor","WeiWei"]
+				"keywords":["weiwei","WeiWei"]
+			},
+			{
+				"title":"administrator 更變密碼",
+				"source":"Security",
+				"eventID":"4724",
+				"keywords":["Administrator"]
 			},
 			{
 				"title":"發現 windows update",
