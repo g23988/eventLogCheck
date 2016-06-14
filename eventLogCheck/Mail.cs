@@ -38,7 +38,9 @@ namespace eventLogCheck
             bool check = false;
             try
             {
-                string pcontect = context;
+                string today = DateTime.Now.ToLocalTime().ToString();
+                string pcontect = DateTime.Now.ToLocalTime().ToString()+"<hr>";
+                pcontect += context.Replace(System.Environment.NewLine, "<br>");
                 //設定mail內容
                 MailMessage msgMail = new MailMessage();
                 //寄件者
@@ -49,7 +51,7 @@ namespace eventLogCheck
                     msgMail.To.Add(new MailAddress(mailto_addr));
                 }
                 //主旨
-                msgMail.Subject = _config.SMTPsubject;
+                msgMail.Subject = _config.SMTPsubject + " " + today;
                 //信件內容(含HTML時)
                 AlternateView alt = AlternateView.CreateAlternateViewFromString(pcontect, null, "text/html");
                 msgMail.AlternateViews.Add(alt);

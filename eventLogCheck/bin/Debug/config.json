@@ -3,14 +3,16 @@
 		"ThreadsMax":500,
 		"RangeSeconds":86400,
 		"CheckTimerEnable":true,
-		"CheckTimerSeconds":10,
+		"CheckTimerSeconds":20,
 		"SMTP":{
 			"alert":true,
-			"server":"localhosta",
+			"server":"localhost",
 			"auth":false,
-			"user":"user",
-			"password":"passwd",
-			"to":["wei.liu@104.com.tw","sys01@104.com.tw"]
+			"user":"",
+			"password":"",
+			"from":"",
+			"subject":"alert",
+			"to":[""]
 			}
 	},
 	"check":{

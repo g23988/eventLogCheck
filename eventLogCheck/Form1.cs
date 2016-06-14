@@ -58,7 +58,6 @@ namespace eventLogCheck
         /// </summary>
         private void docheck(Config config) {
             textBox1.Text = "";
-            //textBox1.Text += "gogo\r\n";
             eventlist = Query.QueryLog(config.Sourcelist,config.RangeSeconds);
             foreach (EventLogRecord log in eventlist)
             {
@@ -69,12 +68,28 @@ namespace eventLogCheck
                     Check check = new Check(checkitem,log);
                     if (check.result())
                     {
-                        textBox1.Text += checkitem.title + "\r\n";
-                       
+                        textBox1.Text += checkitem.title + " \r\n";
+                        textBox1.Text += "事件發生時間: "+log.TimeCreated + " \r\n";
+                        textBox1.Text += " \r\n";
                     }
                 }
                
             }
+            //寄送錯誤信
+            if (config.SMTPalert && textBox1.Text!="")
+            {
+                Mail mail = new Mail(config);
+                if (mail.send(textBox1.Text))
+                {
+                    textBox1.Text += "寄信成功 \r\n";
+                }
+                else
+	            {
+                    textBox1.Text += "寄信失敗 \r\n";
+	            }
+
+            }
+
         }
 
         /// <summary>
@@ -98,7 +113,7 @@ namespace eventLogCheck
         private void send_testMail_btn_Click(object sender, EventArgs e)
         {
             Mail mail = new Mail(config);
-            if(!mail.send("test")) textBox1.Text+="寄信失敗 \r\n";
+            if(!mail.send("test <br> 這只是個信件測試 from eventLogCheck")) textBox1.Text+="寄信失敗 \r\n";
         }
 
     }

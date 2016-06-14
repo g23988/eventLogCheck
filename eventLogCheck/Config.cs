@@ -119,6 +119,15 @@ namespace eventLogCheck
         }
 
         /// <summary>
+        /// 取得或設定 smtp 是否 警告
+        /// </summary>
+        public bool SMTPalert {
+            get { return _SMTPalert; }
+            set { _SMTPalert = value; }
+        }
+
+
+        /// <summary>
         /// 取得SMTP 使用者
         /// </summary>
         public string SMTPuser {
