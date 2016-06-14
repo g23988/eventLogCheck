@@ -34,7 +34,7 @@ namespace eventLogCheck
             NodeLists = _eventlogXML.SelectNodes("*/*");
             foreach (XmlNode node in NodeLists)
             {
-                xmlStringBuffer += node.InnerText;
+                xmlStringBuffer += node.InnerXml;
             }
 
         }
@@ -85,7 +85,7 @@ namespace eventLogCheck
             foreach (string keyword in _keywords)
             {
 
-                if (xmlStringBuffer.Contains(keyword))
+                if (xmlStringBuffer.Contains(@keyword))
                 {
                     check = true;
                 }

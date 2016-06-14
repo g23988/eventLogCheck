@@ -16,16 +16,16 @@
 	"check":{
 		"Items":[
 			{
-				"title":"有人清空",
+				"title":"清空log",
 				"source":"Security",
 				"eventID":"1102",
 				"keywords":["清除","清除2"]
 			},
 			{
-				"title":"weiwei 更變密碼",
+				"title":"administrator 被更變密碼",
 				"source":"Security",
 				"eventID":"4724",
-				"keywords":["weiwei","administartor","WeiWei"]
+				"keywords":["<Data Name=\"TargetUserName\" xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\">Administrator</Data>"]
 			},
 			{
 				"title":"發現 windows update",
