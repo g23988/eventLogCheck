@@ -75,6 +75,21 @@ namespace eventLogCheck
                 }
                
             }
+            //寄送錯誤信
+            if (config.SMTPalert)
+            {
+                Mail mail = new Mail(config);
+                if (mail.send(textBox1.Text))
+                {
+                    textBox1.Text += "寄信成功 \r\n";
+                }
+                else
+	            {
+                    textBox1.Text += "寄信失敗 \r\n";
+	            }
+
+            }
+
         }
 
         /// <summary>
