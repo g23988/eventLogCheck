@@ -12,26 +12,57 @@ namespace eventLogCheck
     /// </summary>
     class Mail
     {
+        //站存設定檔
+        private Config _config;
+        private SmtpClient _mySmtp;
+        
+
         public Mail(Config config) {
+            _config = config;
             //設定smtp主機
-            SmtpClient mySmtp = new SmtpClient();
+            _mySmtp = new SmtpClient(config.SMTPserver);
             //設定smtp帳密
-            mySmtp.Credentials = new System.Net.NetworkCredential("", "password");
-            //信件內容
-            string pcontect = "string or html";
-            //設定mail內容
-            MailMessage msgMail = new MailMessage();
-            //寄件者
-            msgMail.From = new MailAddress("sys@hinet.net");
-            //收件者
-            msgMail.To.Add("user@hinet.net");
-            //主旨
-            msgMail.Subject = "信件主旨";
-            //信件內容(含HTML時)
-            AlternateView alt = AlternateView.CreateAlternateViewFromString(pcontect, null, "text/html");
-            msgMail.AlternateViews.Add(alt);
-            //寄mail
-            mySmtp.Send(msgMail);
+            if (config.SMTPauth)
+            {
+                _mySmtp.Credentials = new System.Net.NetworkCredential(config.SMTPuser, config.SMTPpasswd);
+            }
+            
         }
+
+        /// <summary>
+        /// 發送信件
+        /// </summary>
+        /// <param name="context">信件內容</param>
+        /// <returns>是否成功</returns>
+        public bool send(string context) {
+            bool check = false;
+            try
+            {
+                string pcontect = context;
+                //設定mail內容
+                MailMessage msgMail = new MailMessage();
+                //寄件者
+                msgMail.From = new MailAddress(_config.SMTPfrom);
+                //收件者
+                foreach (string mailto_addr in _config.SMTPto)
+                {
+                    msgMail.To.Add(new MailAddress(mailto_addr));
+                }
+                //主旨
+                msgMail.Subject = _config.SMTPsubject;
+                //信件內容(含HTML時)
+                AlternateView alt = AlternateView.CreateAlternateViewFromString(pcontect, null, "text/html");
+                msgMail.AlternateViews.Add(alt);
+                //寄mail
+                _mySmtp.Send(msgMail);
+                check = true;
+            }
+            catch (Exception)
+            {
+                check = false;
+            }
+            
+            return check;
+        } 
     }
 }

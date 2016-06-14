@@ -46,3 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.json
+*.json
+eventLogCheck/bin/Debug/config.json
+*.json

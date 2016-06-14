@@ -34,6 +34,8 @@ namespace eventLogCheck
         private bool _SMTPauth = false;
         private string _SMTPuser = "";
         private string _SMTPpassword = "";
+        private string _SMTPfrom = "";
+        private string _SMTPsubject = "";
         private List<string> _SMTPto = new List<string>();
         
         
@@ -100,11 +102,48 @@ namespace eventLogCheck
         public ArrayList CheckList { 
             get { return _checkList;}
         }
+
         /// <summary>
         /// 取得SMTP serverhost
         /// </summary>
         public string SMTPserver {
             get { return _SMTPserver; }
+        }
+
+        /// <summary>
+        /// 取得或設定 smtp 是否auth
+        /// </summary>
+        public bool SMTPauth {
+            get { return _SMTPauth; }
+            set { _SMTPauth = value; }
+        }
+
+        /// <summary>
+        /// 取得SMTP 使用者
+        /// </summary>
+        public string SMTPuser {
+            get { return _SMTPuser; }
+        }
+
+        /// <summary>
+        /// 取得SMTP 密碼
+        /// </summary>
+        public string SMTPpasswd {
+            get { return _SMTPpassword; }
+        }
+
+        /// <summary>
+        /// 取得SMTP 寄件者
+        /// </summary>
+        public string SMTPfrom {
+            get { return _SMTPfrom; }
+        }
+
+        /// <summary>
+        /// 取得SMTP 信件主旨
+        /// </summary>
+        public string SMTPsubject {
+            get { return _SMTPsubject; }
         }
 
 
@@ -121,7 +160,9 @@ namespace eventLogCheck
                 _SMTPauth = getSMTPauth();
                 _SMTPuser = getSMTPuser();
                 _SMTPpassword = getSMTPpassword();
+                _SMTPfrom = getSMTPfrom();
                 _SMTPto = getSMTPto();
+                _SMTPsubject = getSMTPsubject();
                 _RangeSeconds = getRangeSeconds();
                 _CheckTimerEnable = getCheckTimerEnable();
                 _CheckTimer = getCheckTimer();
@@ -208,6 +249,22 @@ namespace eventLogCheck
         /// <returns></returns>
         private string getSMTPpassword() {
             return _dict["system"]["SMTP"]["password"];
+        }
+
+        /// <summary>
+        /// 取得smtp from
+        /// </summary>
+        /// <returns></returns>
+        private string getSMTPfrom() {
+            return _dict["system"]["SMTP"]["from"];
+        }
+
+        /// <summary>
+        /// 取得smtp 信件主旨
+        /// </summary>
+        /// <returns></returns>
+        private string getSMTPsubject() {
+            return _dict["system"]["SMTP"]["subject"];
         }
 
         /// <summary>
