@@ -39,7 +39,7 @@ namespace eventLogCheck
             try
             {
                 string today = DateTime.Now.ToLocalTime().ToString();
-                string pcontect = DateTime.Now.ToLocalTime().ToString()+"<hr>";
+                string pcontect = "搜尋範圍 " + DateTime.Now.AddSeconds(-_config.RangeSeconds).ToLocalTime().ToString()+ " 到 "  +DateTime.Now.ToLocalTime().ToString()+" 間<hr>";
                 pcontect += context.Replace(System.Environment.NewLine, "<br>");
                 //設定mail內容
                 MailMessage msgMail = new MailMessage();
