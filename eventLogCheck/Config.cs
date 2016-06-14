@@ -100,6 +100,13 @@ namespace eventLogCheck
         public ArrayList CheckList { 
             get { return _checkList;}
         }
+        /// <summary>
+        /// 取得SMTP serverhost
+        /// </summary>
+        public string SMTPserver {
+            get { return _SMTPserver; }
+        }
+
 
         /// <summary>
         /// 建構設定檔相關資料

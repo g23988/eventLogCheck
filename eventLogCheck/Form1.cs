@@ -79,35 +79,11 @@ namespace eventLogCheck
                         textBox1.Text += checkitem.title + "\r\n";
                        
                     }
-                    /*
-                    if (log.Id.ToString() == checkitem.eventID)
-                    {
-                        textBox1.Text += checkitem.title + "\r\n";
-                    }*/
                 }
                
             }
         }
 
-
-        /*
-        private void docheck(CheckItem chkItem) {
-            //List<EventRecord> eventlist = Query.QueryLog(chkItem.eventID, chkItem.source);
-            eventlist = Query.QueryLog(chkItem.source);
-            foreach (var item in eventlist)
-            {
-                textBox1.Text +=  item.Id +"\r\n";
-                if (Query.CheckWord(chkItem.keyword,item))
-                {
-                    textBox1.Text += (" Alert！" + chkItem.title + "\r\n");
-                }
-            }
-        }*/
-/*
-        private void checkKeyword() { 
-            
-        }
-*/
         /// <summary>
         /// 定時器觸發
         /// </summary>
@@ -119,6 +95,16 @@ namespace eventLogCheck
             //開始檢查
             this.docheck(config);
             
+        }
+
+        /// <summary>
+        /// 寄發測試信
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void send_testMail_btn_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

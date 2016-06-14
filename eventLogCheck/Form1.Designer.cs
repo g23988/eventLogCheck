@@ -31,26 +31,38 @@
             this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkTimer = new System.Windows.Forms.Timer(this.components);
+            this.send_testMail_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
+            this.textBox1.Location = new System.Drawing.Point(12, 42);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(519, 436);
+            this.textBox1.Size = new System.Drawing.Size(519, 406);
             this.textBox1.TabIndex = 1;
             // 
             // checkTimer
             // 
             this.checkTimer.Tick += new System.EventHandler(this.checkTimer_Tick);
             // 
+            // send_testMail_btn
+            // 
+            this.send_testMail_btn.Location = new System.Drawing.Point(13, 13);
+            this.send_testMail_btn.Name = "send_testMail_btn";
+            this.send_testMail_btn.Size = new System.Drawing.Size(202, 23);
+            this.send_testMail_btn.TabIndex = 2;
+            this.send_testMail_btn.Text = "寄發測試信";
+            this.send_testMail_btn.UseVisualStyleBackColor = true;
+            this.send_testMail_btn.Click += new System.EventHandler(this.send_testMail_btn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 460);
+            this.Controls.Add(this.send_testMail_btn);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "EventLogCheck";
@@ -64,6 +76,7 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Timer checkTimer;
+        private System.Windows.Forms.Button send_testMail_btn;
     }
 }
 

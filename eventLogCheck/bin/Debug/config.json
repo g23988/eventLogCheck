@@ -6,7 +6,7 @@
 		"CheckTimerSeconds":10,
 		"SMTP":{
 			"alert":true,
-			"server":"localhost",
+			"server":"localhosta",
 			"auth":false,
 			"user":"user",
 			"password":"passwd",
