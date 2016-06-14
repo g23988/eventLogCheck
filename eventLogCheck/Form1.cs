@@ -37,13 +37,6 @@ namespace eventLogCheck
             this.readConfig();
             //開始檢查
             this.docheck(config);
-
-            /*
-            foreach (CheckItem item in config.CheckList)
-            {
-                docheck(item);
-                break;
-            }*/
             
         }
 
@@ -104,7 +97,8 @@ namespace eventLogCheck
         /// <param name="e"></param>
         private void send_testMail_btn_Click(object sender, EventArgs e)
         {
-
+            Mail mail = new Mail(config);
+            if(!mail.send("test")) textBox1.Text+="寄信失敗 \r\n";
         }
 
     }
