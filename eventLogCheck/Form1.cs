@@ -69,14 +69,15 @@ namespace eventLogCheck
                     Check check = new Check(checkitem,log);
                     if (check.result())
                     {
-                        textBox1.Text += checkitem.title + "\r\n";
-                       
+                        textBox1.Text += checkitem.title + " \r\n";
+                        textBox1.Text += "事件發生時間: "+log.TimeCreated + " \r\n";
+                        textBox1.Text += " \r\n";
                     }
                 }
                
             }
             //寄送錯誤信
-            if (config.SMTPalert)
+            if (config.SMTPalert && textBox1.Text!="")
             {
                 Mail mail = new Mail(config);
                 if (mail.send(textBox1.Text))
