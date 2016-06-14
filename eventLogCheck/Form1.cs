@@ -58,7 +58,6 @@ namespace eventLogCheck
         /// </summary>
         private void docheck(Config config) {
             textBox1.Text = "";
-            //textBox1.Text += "gogo\r\n";
             eventlist = Query.QueryLog(config.Sourcelist,config.RangeSeconds);
             foreach (EventLogRecord log in eventlist)
             {
@@ -114,7 +113,7 @@ namespace eventLogCheck
         private void send_testMail_btn_Click(object sender, EventArgs e)
         {
             Mail mail = new Mail(config);
-            if(!mail.send("test")) textBox1.Text+="寄信失敗 \r\n";
+            if(!mail.send("test <br> 這只是個信件測試 from eventLogCheck")) textBox1.Text+="寄信失敗 \r\n";
         }
 
     }
